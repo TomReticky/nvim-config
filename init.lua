@@ -15,6 +15,8 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
 
+vim.opt.termguicolors = true
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -30,22 +32,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      style = "night", -- High contrast dark version
-      transparent = false,
-      terminal_colors = true, 
-    },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
-    version = "0.9.2", -- Pinned to avoid compilation errors on Neovim 0.9.x
+    version = "0.9.2",
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -55,7 +43,19 @@ require("lazy").setup({
         indent = { enable = true },
       })
     end,
-  }
+  },
+{
+  "rose-pine/neovim",
+  name = "rose-pine",
+  priority = 1000,
+  config = function()
+    require("rose-pine").setup({
+      variant = "main", 
+      dark_variant = "moon",
+    })
+    vim.cmd.colorscheme("rose-pine")
+  end,
+}
 })
 
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')

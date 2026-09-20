@@ -32,19 +32,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  {
-    "nvim-treesitter/nvim-treesitter",
-    version = "0.9.2",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "cpp", "python", "lua", "vim", "vimdoc", "query" },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  },
 {
   "rose-pine/neovim",
   name = "rose-pine",

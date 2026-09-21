@@ -34,7 +34,6 @@ require("lazy").setup({
         virtualtext = {
           auto_trigger_ft = {},
           keymap = {
-            accept = "<Tab>",
             accept_line = "<A-a>",
             dismiss = "<A-e>",
             next = "<A-c>",
@@ -74,7 +73,23 @@ require("lazy").setup({
       })
       vim.cmd.colorscheme("rose-pine")
     end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").install({
+        "python", "c", "cpp", "bash", "make", "vim", "lua"
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+    end,
   }
 })
 
-vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')

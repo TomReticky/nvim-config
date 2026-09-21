@@ -37,13 +37,21 @@ require("lazy").setup({
     version = false,
     opts = {
       provider = "openrouter",
+      behaviour = {
+        auto_approve_tool_permissions = false,
+      },
       providers = {
         openrouter = {
           __inherited_from = "openai",
           endpoint = "https://openrouter.ai/api/v1",
           api_key_name = "OPENROUTER_API_KEY",
-          model = "deepseek/deepseek-v4-flash",
-          max_tokens = 10240,
+          model = "z-ai/glm-5.3-flash",
+          max_tokens = 8192,
+          extra_request_body = {
+            reasoning = {
+              effort = "medium",
+            },
+          },
         },
       },
     },
